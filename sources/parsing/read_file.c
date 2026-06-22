@@ -6,10 +6,11 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 14:44:21 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/22 16:04:50 by skarayil         ###   ########.fr       */
+/*   Updated: 2026/06/22 16:15:57 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line.h"
 #include <fcntl.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -62,4 +63,21 @@ bool	ft_read_map(char *file, char ***lines)
 	(*lines)[i] = NULL;
 	close(fd);
 	return (true);
+}
+#include <stdio.h>
+
+int	main(int ac, char **av)
+{
+	char **lines;
+	int i;
+    (void)ac;
+	if (!ft_read_map(av[1], &lines))
+		return (1);
+
+	i = 0;
+	while (lines[i])
+	{
+		printf("%s", lines[i]);
+		i++;
+	}
 }
