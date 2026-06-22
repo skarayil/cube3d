@@ -6,7 +6,7 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 16:11:31 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/22 17:27:23 by skarayil         ###   ########.fr       */
+/*   Updated: 2026/06/22 17:28:30 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,3 +34,5 @@ int	main(void)
 	printf("%d\n", ft_texture_line("F 220,100,0"));
 	printf("%d\n", ft_texture_line("11111"));
 }
+
+bool	parse_texture(char *line, t_map *map);
