@@ -5,6 +5,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 SRC =	sources/parsing/read_file.c \
 		sources/parsing/parse_file.c \
+		sources/parsing/parse_texture.c \
 		includes/get_next_line/get_next_line.c \
 		includes/get_next_line/get_next_line_utils.c
 
