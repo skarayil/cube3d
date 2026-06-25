@@ -6,7 +6,7 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 18:49:49 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/22 18:53:11 by skarayil         ###   ########.fr       */
+/*   Updated: 2026/06/25 17:52:37 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 typedef struct s_texture
 {
-	char	*no;
-	char	*so;
-	char	*we;
-	char	*ea;
-}	t_texture;
+	char		*no;
+	char		*so;
+	char		*we;
+	char		*ea;
+}				t_texture;
 
 typedef struct s_map
 {
@@ -29,6 +29,10 @@ typedef struct s_map
 	t_texture	texture;
 	int			floor_rgb;
 	int			ceil_rgb;
-}	t_map;
+}				t_map;
+
+int				ft_get_red(char *line);
+int				ft_get_green(char *line);
+int				ft_get_blue(char *line);
 
 #endif
