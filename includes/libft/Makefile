@@ -1,26 +1,24 @@
-CC      = cc
-NAME    = libft.a
-CFLAGS  = -Wall -Wextra -Werror
+NAME = libft.a
 
-SRCS    = ft_atoi.c \
-		  ft_strlen.c \
-		  ft_strdup
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
 
-OBJS = $(SRCS:.c=.o)
+SRC = ft_strlen.c \
+      ft_strdup.c \
+      ft_atoi.c
+
+OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS)
-
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@ 
+$(NAME): $(OBJ)
+	ar rcs $(NAME) $(OBJ)
 
 clean:
-	rm -rf $(OBJS)
+	rm -f $(OBJ)
 
 fclean: clean
-	rm -rf $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
 
