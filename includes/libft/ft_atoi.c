@@ -6,7 +6,7 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 12:26:19 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/25 23:15:33 by skarayil         ###   ########.fr       */
+/*   Updated: 2026/06/25 23:31:11 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static int	ft_isdigit(int c)
 
 int	ft_atoi(const char *nptr)
 {
-	int sign;
-	int res;
+	int	sign;
+	int	res;
 
 	sign = 1;
 	res = 0;

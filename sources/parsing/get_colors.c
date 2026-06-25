@@ -6,24 +6,12 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 17:41:53 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/25 17:52:03 by skarayil         ###   ########.fr       */
+/*   Updated: 2026/06/25 23:31:25 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cube3d/map.h"
-
-static int	ft_atoi(char *str)
-{
-	int	num;
-
-	num = 0;
-	while (*str >= '0' && *str <= '9')
-	{
-		num = num * 10 + (*str - '0');
-		str++;
-	}
-	return (num);
-}
+#include "../../includes/libft/libft.h"
 
 int	ft_get_red(char *line)
 {

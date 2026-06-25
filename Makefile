@@ -9,7 +9,6 @@ LIBFT = $(LIBFT_DIR)/libft.a
 SRC = \
 	sources/parsing/read_file.c \
 	sources/parsing/parse_file.c \
-	sources/parsing/parse_check.c \
 	sources/parsing/parse_color.c \
 	sources/parsing/parse_texture.c \
 	sources/parsing/get_colors.c \

@@ -6,7 +6,7 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 12:07:10 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/25 17:37:06 by skarayil         ###   ########.fr       */
+/*   Updated: 2026/06/25 23:33:37 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,22 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-bool	ft_read_map(char *file, char ***lines);
-bool	ft_parse_texture(char *line, t_map *map);
-bool	ft_parse_color(char *line, t_map *map);
-bool	ft_check_identifiers(t_map *map);
+bool	ft_check_identifiers(t_map *map)
+{
+	if (!map->texture.no)
+		return (false);
+	if (!map->texture.so)
+		return (false);
+	if (!map->texture.we)
+		return (false);
+	if (!map->texture.ea)
+		return (false);
+	if (map->floor_rgb == -1)
+		return (false);
+	if (map->ceil_rgb == -1)
+		return (false);
+	return (true);
+}
 
 bool	ft_texture_line(char *line)
 {

@@ -6,12 +6,14 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 18:49:49 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/25 21:42:34 by skarayil         ###   ########.fr       */
+/*   Updated: 2026/06/25 23:21:21 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_H
 # define MAP_H
+
+# include <stdbool.h>
 
 typedef struct s_texture
 {

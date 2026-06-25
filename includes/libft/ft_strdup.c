@@ -6,7 +6,7 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 23:11:02 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/25 23:15:35 by skarayil         ###   ########.fr       */
+/*   Updated: 2026/06/25 23:31:14 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 
 char	*ft_strdup(char *s)
 {
-	int index;
-	char *new_str;
+	int		index;
+	char	*new_str;
 
 	index = 0;
 	while (s[index])
