@@ -6,7 +6,7 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/26 01:41:46 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/26 01:45:46 by skarayil         ###   ########.fr       */
+/*   Updated: 2026/06/26 18:28:11 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,11 @@ static int	ft_map_width(char **lines, int start)
 
 bool	ft_copy_map(char **lines, int start, t_map *map)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	map->height = ft_map_height(lines, start);
 	map->width = ft_map_width(lines, start);
-
 	map->grid = malloc(sizeof(char *) * (map->height + 1));
 	if (!map->grid)
 		return (false);

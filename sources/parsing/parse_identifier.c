@@ -6,11 +6,11 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/26 01:22:48 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/26 01:23:36 by skarayil         ###   ########.fr       */
+/*   Updated: 2026/06/26 18:27:56 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdbool.h>
+#include <stdbool.h>
 
 bool	ft_texture_line(char *line)
 {
