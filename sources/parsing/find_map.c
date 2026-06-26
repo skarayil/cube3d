@@ -1,22 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   find_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/25 23:10:23 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/26 18:25:50 by skarayil         ###   ########.fr       */
+/*   Created: 2026/06/26 01:24:26 by skarayil          #+#    #+#             */
+/*   Updated: 2026/06/26 01:28:26 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include <stdbool.h>
 
-# include <stddef.h>
+static bool	ft_is_map_line(char *line)
+{
+	int	i;
 
-int	ft_strlen(const char *s);
-char	*ft_strdup(char *s);
-int		ft_atoi(const char *nptr);
+	i = 0;
+	while (line[i] == ' ')
+		i++;
+	if (line[i] == '1')
+		return (true);
+	return (false);
+}
 
-#endif
+int	ft_find_map_start(char **lines)
+{
+	int	i;
+
+	i = 0;
+	while (lines[i])
+	{
+		if (ft_is_map_line(lines[i]))
+			return (i);
+		i++;
+	}
+	return (-1);
+}

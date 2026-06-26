@@ -6,11 +6,12 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 12:07:10 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/25 23:33:37 by skarayil         ###   ########.fr       */
+/*   Updated: 2026/06/26 14:29:37 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cube3d/map.h"
+#include "../../includes/libft/libft.h"
 #include <stdbool.h>
 #include <stdio.h>
 
@@ -29,27 +30,6 @@ bool	ft_check_identifiers(t_map *map)
 	if (map->ceil_rgb == -1)
 		return (false);
 	return (true);
-}
-
-bool	ft_texture_line(char *line)
-{
-	if (!line)
-		return (false);
-	if ((line[0] == 'N' && line[1] == 'O') || (line[0] == 'S' && line[1] == 'O')
-		|| (line[0] == 'W' && line[1] == 'E') || (line[0] == 'E'
-			&& line[1] == 'A'))
-		return (true);
-	return (false);
-}
-
-bool	ft_color_line(char *line)
-{
-	if (!line)
-		return (false);
-	if ((line[0] == 'F' && line[1] == ' ') || (line[0] == 'C'
-			&& line[1] == ' '))
-		return (true);
-	return (false);
 }
 
 bool	ft_parse_file(char **lines, t_map *map)
@@ -77,31 +57,47 @@ bool	ft_parse_file(char **lines, t_map *map)
 		return (false);
 	return (true);
 }
-
-int	main(int ac, char **av)
+int main(int ac, char **av)
 {
-	char	**lines;
-	t_map	map;
+    char    **lines;
+    t_map   map;
+    int     start;
 
-	(void)ac;
-	map.floor_rgb = -1;
-	map.ceil_rgb = -1;
-	map.texture.no = NULL;
-	map.texture.so = NULL;
-	map.texture.we = NULL;
-	map.texture.ea = NULL;
-	if (!ft_read_map(av[1], &lines))
-		return (1);
-	if (!ft_parse_file(lines, &map))
-	{
-		printf("Parse Error\n");
-		return (1);
-	}
-	printf("NO = %s\n", map.texture.no);
-	printf("SO = %s\n", map.texture.so);
-	printf("WE = %s\n", map.texture.we);
-	printf("EA = %s\n", map.texture.ea);
-	printf("FLOOR = %d\n", map.floor_rgb);
-	printf("CEIL = %d\n", map.ceil_rgb);
-	return (0);
+    (void)ac;
+
+    map.floor_rgb = -1;
+    map.ceil_rgb = -1;
+    map.texture.no = NULL;
+    map.texture.so = NULL;
+    map.texture.we = NULL;
+    map.texture.ea = NULL;
+
+    if (!ft_read_map(av[1], &lines))
+        return (1);
+
+    if (!ft_parse_file(lines, &map))
+    {
+        printf("Parse Error\n");
+        return (1);
+    }
+
+    start = ft_find_map_start(lines);
+    if (start == -1)
+        return (1);
+
+    if (!ft_copy_map(lines, start, &map))
+        return (1);
+
+    printf("NO = %s\n", map.texture.no);
+    printf("SO = %s\n", map.texture.so);
+    printf("WE = %s\n", map.texture.we);
+    printf("EA = %s\n", map.texture.ea);
+    printf("FLOOR = %d\n", map.floor_rgb);
+    printf("CEIL = %d\n", map.ceil_rgb);
+
+    printf("MAP\n");
+    for (int i = 0; map.grid[i]; i++)
+        printf("%s", map.grid[i]);
+
+    return (0);
 }

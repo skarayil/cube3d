@@ -6,15 +6,15 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 23:10:37 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/25 23:31:18 by skarayil         ###   ########.fr       */
+/*   Updated: 2026/06/26 14:30:13 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 
-size_t	ft_strlen(const char *s)
+int	ft_strlen(const char *s)
 {
-	size_t	index;
+	int	index;
 
 	index = 0;
 	while (*s++)

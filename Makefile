@@ -12,6 +12,9 @@ SRC = \
 	sources/parsing/parse_color.c \
 	sources/parsing/parse_texture.c \
 	sources/parsing/get_colors.c \
+	sources/parsing/parse_identifier.c \
+	sources/parsing/find_map.c \
+	sources/parsing/copy_map.c \
 	includes/get_next_line/get_next_line.c \
 	includes/get_next_line/get_next_line_utils.c
 
