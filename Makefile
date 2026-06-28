@@ -47,36 +47,6 @@ CHECKER = \
 	sources/parsing/checker/check_player.c
 
 # ===========================
-# RENDERING
-# ===========================
-
-RENDERING =
-
-# ===========================
-# RAYCASTING
-# ===========================
-
-RAYCASTING =
-
-# ===========================
-# EVENTS
-# ===========================
-
-EVENTS =
-
-# ===========================
-# MLX
-# ===========================
-
-MLX =
-
-# ===========================
-# UTILS
-# ===========================
-
-UTILS =
-
-# ===========================
 # GNL
 # ===========================
 
@@ -93,28 +63,29 @@ SRC = \
 	$(PARSER) \
 	$(PARSER_UTILS) \
 	$(CHECKER) \
-	$(RENDERING) \
-	$(RAYCASTING) \
-	$(EVENTS) \
-	$(MLX) \
-	$(UTILS) \
 	$(GNL)
 
-OBJ = $(SRC:.c=.o)
+OBJ_DIR = objects
+OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
+
+# ===========================
+# RULES
+# ===========================
 
 all: $(LIBFT) $(NAME)
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
 
-%.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
 clean:
-	rm -f $(OBJ)
+	rm -rf $(OBJ_DIR)
 	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean

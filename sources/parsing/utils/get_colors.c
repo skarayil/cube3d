@@ -6,12 +6,12 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 17:41:53 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/28 14:45:27 by skarayil         ###   ########.fr       */
+/*   Updated: 2026/06/28 15:14:22 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map.h"
 #include "libft.h"
+#include "map.h"
 
 int	ft_get_red(char *line)
 {

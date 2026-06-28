@@ -6,7 +6,7 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/26 01:41:46 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/28 14:45:18 by skarayil         ###   ########.fr       */
+/*   Updated: 2026/06/28 15:19:26 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	ft_map_width(char **lines, int start)
 	max = 0;
 	while (lines[i])
 	{
-		if (ft_strlen(lines[i]) > max)
+		if ((int)ft_strlen(lines[i]) > max)
 			max = ft_strlen(lines[i]);
 		i++;
 	}
@@ -46,18 +46,18 @@ bool	ft_copy_map(char **lines, int start, t_map *map)
 	int	i;
 
 	i = 0;
-	map->height = ft_map_height(lines, start);
-	map->width = ft_map_width(lines, start);
-	map->grid = malloc(sizeof(char *) * (map->height + 1));
-	if (!map->grid)
+	map->grid.height = ft_map_height(lines, start);
+	map->grid.width = ft_map_width(lines, start);
+	map->grid.data = malloc(sizeof(char *) * (map->grid.height + 1));
+	if (!map->grid.data)
 		return (false);
-	while (i < map->height)
+	while (i < map->grid.height)
 	{
-		map->grid[i] = ft_strdup(lines[start + i]);
-		if (!map->grid[i])
+		map->grid.data[i] = ft_strdup(lines[start + i]);
+		if (!map->grid.data[i])
 			return (false);
 		i++;
 	}
-	map->grid[i] = NULL;
+	map->grid.data[i] = NULL;
 	return (true);
 }

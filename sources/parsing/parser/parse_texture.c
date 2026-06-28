@@ -6,12 +6,12 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 12:07:06 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/28 14:44:59 by skarayil         ###   ########.fr       */
+/*   Updated: 2026/06/28 15:13:08 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map.h"
 #include "libft.h"
+#include "map.h"
 #include <stdbool.h>
 #include <stdlib.h>
 
@@ -51,10 +51,10 @@ static bool	ft_set_texture_value(char *line, t_map *map, char *path)
 	char	*keys[4];
 	int		i;
 
-	textures[0] = &map->texture.no;
-	textures[1] = &map->texture.so;
-	textures[2] = &map->texture.we;
-	textures[3] = &map->texture.ea;
+	textures[0] = &map->texture.north;
+	textures[1] = &map->texture.south;
+	textures[2] = &map->texture.west;
+	textures[3] = &map->texture.east;
 	keys[0] = "NO";
 	keys[1] = "SO";
 	keys[2] = "WE";

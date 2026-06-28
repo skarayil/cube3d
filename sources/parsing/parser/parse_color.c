@@ -6,7 +6,7 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 12:12:59 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/28 14:43:25 by skarayil         ###   ########.fr       */
+/*   Updated: 2026/06/28 15:18:57 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,23 @@ static bool	ft_valid_chars(char *line)
 	return (true);
 }
 
-static bool	ft_set_color_value(char *line, t_map *map, int rgb_int)
+static bool	ft_set_color_value(char *line, t_map *map, int r, int g, int b)
 {
 	if (line[0] == 'F')
 	{
-		if (map->floor_rgb != -1)
+		if (map->floor.r != -1 || map->floor.g != -1 || map->floor.b != -1)
 			return (false);
-		map->floor_rgb = rgb_int;
+		map->floor.r = r;
+		map->floor.g = g;
+		map->floor.b = b;
 	}
 	else if (line[0] == 'C')
 	{
-		if (map->ceil_rgb != -1)
+		if (map->ceiling.r != -1 || map->ceiling.g != -1 || map->ceiling.b != -1)
 			return (false);
-		map->ceil_rgb = rgb_int;
+		map->ceiling.r = r;
+		map->ceiling.g = g;
+		map->ceiling.b = b;
 	}
 	else
 		return (false);
@@ -93,5 +97,5 @@ bool	ft_parse_color(char *line, t_map *map)
 	rgb_int = ft_rgb_to_int(r, g, b);
 	if (rgb_int == -1)
 		return (false);
-	return (ft_set_color_value(line, map, rgb_int));
+	return (ft_set_color_value(line, map, r, g, b));
 }

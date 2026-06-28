@@ -6,7 +6,7 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 14:17:08 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/28 14:45:35 by skarayil         ###   ########.fr       */
+/*   Updated: 2026/06/28 15:19:04 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,29 @@ static bool	ft_valid_char(char c)
 
 bool	ft_check_char(t_map *map)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
 	i = 0;
-	while (map->grid[i])
+	while (map->grid.data[i])
 	{
 		j = 0;
-		while (map->grid[i][j])
+		while (map->grid.data[i][j])
 		{
-			if (!ft_valid_char(map->grid[i][j]))
+			if (!ft_valid_char(map->grid.data[i][j]))
 				return (false);
 			j++;
 		}
 		i++;
 	}
+	return (true);
+}
+
+bool	ft_check_map(t_map *map)
+{
+	if (!ft_check_char(map))
+		return (false);
+	if (!ft_check_player(map))
+		return (false);
 	return (true);
 }
