@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   img.h                                              :+:      :+:    :+:   */
+/*   error_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/28 14:25:58 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/28 16:41:48 by skarayil         ###   ########.fr       */
+/*   Created: 2026/06/28 17:00:00 by skarayil          #+#    #+#             */
+/*   Updated: 2026/06/28 16:07:30 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-typedef struct s_img
+#include "libft.h"
+#include "map.h"
+#include <unistd.h>
+
+bool	ft_error(char *msg)
 {
-	void	*img_ptr;
-	char	*addr;
-	int		bpp;
-	int		line_length;
-	int		endian;
-}			t_img;
+	write(2, "Error\n", 6);
+	if (msg)
+	{
+		write(2, msg, ft_strlen(msg));
+		write(2, "\n", 1);
+	}
+	return (false);
+}

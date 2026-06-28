@@ -6,7 +6,7 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 14:19:42 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/28 15:19:15 by skarayil         ###   ########.fr       */
+/*   Updated: 2026/06/28 16:47:19 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,90 +14,109 @@
 #include "player.h"
 #include <stdbool.h>
 
-static bool	ft_is_player(char c)
+static bool	ft_is_player_char(char c)
 {
-	if (c == 'N')
-		return (true);
-	if (c == 'S')
-		return (true);
-	if (c == 'E')
-		return (true);
-	if (c == 'W')
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		return (true);
 	return (false);
 }
 
 bool	ft_check_player(t_map *map)
 {
-	int	i;
-	int	j;
-	int	player_count;
+	int		count;
+	char	**grid;
+	int		i;
+	int		j;
 
+	count = 0;
+	grid = map->grid.data;
 	i = 0;
-	player_count = 0;
-	while (map->grid.data[i])
+	while (grid[i])
 	{
 		j = 0;
-		while (map->grid.data[i][j])
+		while (grid[i][j])
 		{
-			if (ft_is_player(map->grid.data[i][j]))
-				player_count++;
+			if (ft_is_player_char(grid[i][j]))
+				count++;
 			j++;
 		}
 		i++;
 	}
-	if (player_count != 1)
+	return (count == 1);
+}
+
+static void	ft_set_north(t_player *p)
+{
+	p->dir.x = 0;
+	p->dir.y = -1;
+	p->plane.x = 0.66;
+	p->plane.y = 0;
+}
+
+static void	ft_set_south(t_player *p)
+{
+	p->dir.x = 0;
+	p->dir.y = 1;
+	p->plane.x = -0.66;
+	p->plane.y = 0;
+}
+
+static void	ft_set_east(t_player *p)
+{
+	p->dir.x = 1;
+	p->dir.y = 0;
+	p->plane.x = 0;
+	p->plane.y = 0.66;
+}
+
+static void	ft_set_west(t_player *p)
+{
+	p->dir.x = -1;
+	p->dir.y = 0;
+	p->plane.x = 0;
+	p->plane.y = -0.66;
+}
+
+static void	ft_set_player_dir(char c, t_player *p)
+{
+	if (c == 'N')
+		ft_set_north(p);
+	else if (c == 'S')
+		ft_set_south(p);
+	else if (c == 'E')
+		ft_set_east(p);
+	else if (c == 'W')
+		ft_set_west(p);
+}
+
+static bool	ft_set_player(t_map *map, t_player *p, int x, int y)
+{
+	char	c;
+
+	c = map->grid.data[y][x];
+	if (!ft_is_player_char(c))
 		return (false);
+	p->pos.x = (double)x + 0.5;
+	p->pos.y = (double)y + 0.5;
+	ft_set_player_dir(c, p);
 	return (true);
 }
 
-bool	ft_find_player(t_map *map, t_player *player)
+bool	ft_find_player(t_map *map, t_player *p)
 {
-	int	y;
-	int	x;
-	char	c;
+	int		x;
+	int		y;
+	char	**grid;
 
+	grid = map->grid.data;
 	y = 0;
-	while (map->grid.data[y])
+	while (grid[y])
 	{
 		x = 0;
-		while (map->grid.data[y][x])
+		while (grid[y][x])
 		{
-			c = map->grid.data[y][x];
-			if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
-			{
-				player->pos.x = (double)x + 0.5;
-				player->pos.y = (double)y + 0.5;
-				if (c == 'N')
-				{
-					player->dir.x = 0;
-					player->dir.y = -1;
-					player->plane.x = 0.66;
-					player->plane.y = 0;
-				}
-				else if (c == 'S')
-				{
-					player->dir.x = 0;
-					player->dir.y = 1;
-					player->plane.x = -0.66;
-					player->plane.y = 0;
-				}
-				else if (c == 'E')
-				{
-					player->dir.x = 1;
-					player->dir.y = 0;
-					player->plane.x = 0;
-					player->plane.y = 0.66;
-				}
-				else if (c == 'W')
-				{
-					player->dir.x = -1;
-					player->dir.y = 0;
-					player->plane.x = 0;
-					player->plane.y = -0.66;
-				}
+			if (ft_set_player(map, p, x, y))
 				return (true);
-			}
 			x++;
 		}
 		y++;

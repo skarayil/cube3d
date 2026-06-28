@@ -6,13 +6,13 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 14:37:36 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/28 15:22:45 by skarayil         ###   ########.fr       */
+/*   Updated: 2026/06/28 16:42:25 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "map.h"
 #include "player.h"
-#include "libft.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -24,12 +24,7 @@ int	main(int ac, char **av)
 	int			i;
 
 	if (ac != 2)
-	{
-		printf("Usage: ./cub3D <map.cub>\n");
-		return (1);
-	}
-	
-	// Map'i başlat
+		return (printf("Usage: ./cub3D <map.cub>\n"), 1);
 	map.floor.r = -1;
 	map.floor.g = -1;
 	map.floor.b = -1;
@@ -43,55 +38,40 @@ int	main(int ac, char **av)
 	map.grid.data = NULL;
 	map.grid.width = 0;
 	map.grid.height = 0;
-	
-	// Haritayı oku
 	if (!ft_read_map(av[1], &lines))
-	{
-		printf("Error: Failed to read map file\n");
-		return (1);
-	}
-	
-	// Parse et
+		return (printf("Error: Failed to read map\n"), 1);
 	if (!ft_parse_file(lines, &map, &player))
 	{
-		printf("Parse Error\n");
 		i = 0;
 		while (lines[i])
 			free(lines[i++]);
 		free(lines);
 		return (1);
 	}
-	
-	// Sonuçları yazdır
 	printf("=== TEXTURES ===\n");
 	printf("NO = %s\n", map.texture.north);
 	printf("SO = %s\n", map.texture.south);
 	printf("WE = %s\n", map.texture.west);
 	printf("EA = %s\n", map.texture.east);
-	
 	printf("\n=== COLORS ===\n");
 	printf("FLOOR = RGB(%d, %d, %d)\n", map.floor.r, map.floor.g, map.floor.b);
-	printf("CEIL = RGB(%d, %d, %d)\n", map.ceiling.r, map.ceiling.g, map.ceiling.b);
-	
+	printf("CEIL = RGB(%d, %d, %d)\n", map.ceiling.r, map.ceiling.g,
+		map.ceiling.b);
 	printf("\n=== PLAYER ===\n");
 	printf("POS = (%.2f, %.2f)\n", player.pos.x, player.pos.y);
 	printf("DIR = (%.2f, %.2f)\n", player.dir.x, player.dir.y);
 	printf("PLANE = (%.2f, %.2f)\n", player.plane.x, player.plane.y);
-	
 	printf("\n=== MAP (%dx%d) ===\n", map.grid.width, map.grid.height);
 	i = 0;
 	while (i < map.grid.height)
 	{
-		printf("%s", map.grid.data[i]);
+		printf("%s\n", map.grid.data[i]);
 		i++;
 	}
-	
-	// Temizlik
 	i = 0;
 	while (lines[i])
 		free(lines[i++]);
 	free(lines);
-	
 	if (map.texture.north)
 		free(map.texture.north);
 	if (map.texture.south)
@@ -100,7 +80,6 @@ int	main(int ac, char **av)
 		free(map.texture.west);
 	if (map.texture.east)
 		free(map.texture.east);
-	
 	i = 0;
 	while (i < map.grid.height)
 	{
@@ -110,6 +89,5 @@ int	main(int ac, char **av)
 	}
 	if (map.grid.data)
 		free(map.grid.data);
-	
 	return (0);
 }

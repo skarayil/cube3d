@@ -6,7 +6,7 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 12:07:06 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/28 15:13:08 by skarayil         ###   ########.fr       */
+/*   Updated: 2026/06/28 16:08:03 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,7 @@ static bool	ft_is_xpm(char *path)
 		return (false);
 	if (path[len - 4] != '.')
 		return (false);
-	if (path[len - 3] != 'x')
-		return (false);
-	if (path[len - 2] != 'p')
-		return (false);
-	if (path[len - 1] != 'm')
+	if (path[len - 3] != 'x' || path[len - 2] != 'p' || path[len - 1] != 'm')
 		return (false);
 	return (true);
 }

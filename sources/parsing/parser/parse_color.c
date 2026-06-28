@@ -6,7 +6,7 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 12:12:59 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/28 15:18:57 by skarayil         ###   ########.fr       */
+/*   Updated: 2026/06/28 16:47:36 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,23 +57,20 @@ static bool	ft_valid_chars(char *line)
 	return (true);
 }
 
-static bool	ft_set_color_value(char *line, t_map *map, int r, int g, int b)
+static bool	ft_set_color_value(char *line, t_map *map, t_rgb color)
 {
 	if (line[0] == 'F')
 	{
 		if (map->floor.r != -1 || map->floor.g != -1 || map->floor.b != -1)
 			return (false);
-		map->floor.r = r;
-		map->floor.g = g;
-		map->floor.b = b;
+		map->floor = color;
 	}
 	else if (line[0] == 'C')
 	{
-		if (map->ceiling.r != -1 || map->ceiling.g != -1 || map->ceiling.b != -1)
+		if (map->ceiling.r != -1 || map->ceiling.g != -1 || map->ceiling.b !=
+			-1)
 			return (false);
-		map->ceiling.r = r;
-		map->ceiling.g = g;
-		map->ceiling.b = b;
+		map->ceiling = color;
 	}
 	else
 		return (false);
@@ -82,10 +79,11 @@ static bool	ft_set_color_value(char *line, t_map *map, int r, int g, int b)
 
 bool	ft_parse_color(char *line, t_map *map)
 {
-	int	r;
-	int	g;
-	int	b;
-	int	rgb_int;
+	int		r;
+	int		g;
+	int		b;
+	int		rgb_int;
+	t_rgb	color;
 
 	if (!ft_valid_format(line))
 		return (false);
@@ -97,5 +95,8 @@ bool	ft_parse_color(char *line, t_map *map)
 	rgb_int = ft_rgb_to_int(r, g, b);
 	if (rgb_int == -1)
 		return (false);
-	return (ft_set_color_value(line, map, r, g, b));
+	color.r = r;
+	color.g = g;
+	color.b = b;
+	return (ft_set_color_value(line, map, color));
 }

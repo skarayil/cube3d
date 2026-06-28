@@ -6,7 +6,7 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/26 01:41:46 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/28 15:19:26 by skarayil         ###   ########.fr       */
+/*   Updated: 2026/06/28 16:39:32 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,39 +25,47 @@ static int	ft_map_height(char **lines, int start)
 	return (height);
 }
 
-static int	ft_map_width(char **lines, int start)
+static char	*ft_trim_newline(char *str)
 {
-	int	i;
-	int	max;
+	char	*trimmed;
+	int		len;
 
-	i = start;
-	max = 0;
-	while (lines[i])
+	len = ft_strlen(str);
+	if (len > 0 && str[len - 1] == '\n')
 	{
-		if ((int)ft_strlen(lines[i]) > max)
-			max = ft_strlen(lines[i]);
-		i++;
+		trimmed = ft_strdup(str);
+		if (!trimmed)
+			return (NULL);
+		trimmed[len - 1] = '\0';
+		return (trimmed);
 	}
-	return (max);
+	return (ft_strdup(str));
 }
 
 bool	ft_copy_map(char **lines, int start, t_map *map)
 {
-	int	i;
+	int		i;
+	char	**dst;
 
-	i = 0;
 	map->grid.height = ft_map_height(lines, start);
-	map->grid.width = ft_map_width(lines, start);
 	map->grid.data = malloc(sizeof(char *) * (map->grid.height + 1));
 	if (!map->grid.data)
 		return (false);
+	i = 0;
+	dst = map->grid.data;
 	while (i < map->grid.height)
 	{
-		map->grid.data[i] = ft_strdup(lines[start + i]);
-		if (!map->grid.data[i])
+		dst[i] = ft_trim_newline(lines[start + i]);
+		if (!dst[i])
+		{
+			while (i-- > 0)
+				free(dst[i]);
+			free(dst);
 			return (false);
+		}
 		i++;
 	}
-	map->grid.data[i] = NULL;
+	dst[i] = NULL;
+	map->grid.width = 0;
 	return (true);
 }

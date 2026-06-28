@@ -6,34 +6,32 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/26 01:24:26 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/28 15:14:09 by skarayil         ###   ########.fr       */
+/*   Updated: 2026/06/28 16:08:53 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "map.h"
 #include <stdbool.h>
 
 static bool	ft_is_map_line(char *line)
 {
-	int	i;
-
-	i = 0;
-	while (line[i] == ' ')
-		i++;
-	if (line[i] == '1')
+	while (*line == ' ' || *line == '\t')
+		line++;
+	if (*line == '1')
 		return (true);
 	return (false);
 }
 
 int	ft_find_map_start(char **lines)
 {
-	int	i;
+	int	idx;
 
-	i = 0;
-	while (lines[i])
+	idx = 0;
+	while (lines[idx])
 	{
-		if (ft_is_map_line(lines[i]))
-			return (i);
-		i++;
+		if (ft_is_map_line(lines[idx]))
+			return (idx);
+		idx++;
 	}
 	return (-1);
 }

@@ -36,6 +36,7 @@ PARSER = \
 PARSER_UTILS = \
 	sources/parsing/utils/get_colors.c \
 	sources/parsing/utils/find_map.c \
+	sources/parsing/utils/error_utils.c \
 	sources/parsing/utils/copy_map.c
 
 # ===========================
