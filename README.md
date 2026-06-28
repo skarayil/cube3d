@@ -102,3 +102,25 @@ cube3d/
     ├── events/
     └── utils/
 ```
+```
+Yapılması gereken validasyonlar:
+
+1. Harita etrafının duvarla çevrili olması (EN ÖNEMLİ):
+Haritanın en üst, en alt, en sol ve en sağ sınırları 1 olmalı
+
+Oyuncu (N/S/E/W) ve boş alanlar (0) asla sınıra temas etmemeli
+
+2. Geçersiz karakter kontrolü:
+Sadece 0, 1, N, S, E, W, boşluk () ve newline (\n) kabul edilmeli
+
+3. Tek bir oyuncu kontrolü:
+Sadece 1 tane N, S, E veya W olmalı (zaten var)
+
+4. Haritanın dikdörtgen olması:
+Tüm satırlar aynı uzunlukta olmalı (boşluklarla tamamlanabilir)
+
+5. .cub dosyası formatı:
+Identifier'lar (NO, SO, WE, EA, F, C) haritadan ÖNCE gelmeli
+
+Geçersiz satırlar olmamalı
+```
