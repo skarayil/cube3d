@@ -6,7 +6,7 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 18:49:49 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/26 01:47:12 by skarayil         ###   ########.fr       */
+/*   Updated: 2026/06/28 14:50:55 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,8 @@ bool			ft_texture_line(char *line);
 bool			ft_color_line(char *line);
 int				ft_find_map_start(char **lines);
 bool			ft_copy_map(char **lines, int start, t_map *map);
+bool			ft_check_char(t_map *map);
+bool			ft_check_player(t_map *map);
+bool			ft_parse_file(char **lines, t_map *map);
 
 #endif

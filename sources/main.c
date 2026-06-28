@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_file.c                                       :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/23 12:07:10 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/26 18:29:23 by skarayil         ###   ########.fr       */
+/*   Created: 2026/06/28 14:37:36 by skarayil          #+#    #+#             */
+/*   Updated: 2026/06/28 14:38:14 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,49 +14,6 @@
 #include "../../includes/libft/libft.h"
 #include <stdbool.h>
 #include <stdio.h>
-
-bool	ft_check_identifiers(t_map *map)
-{
-	if (!map->texture.no)
-		return (false);
-	if (!map->texture.so)
-		return (false);
-	if (!map->texture.we)
-		return (false);
-	if (!map->texture.ea)
-		return (false);
-	if (map->floor_rgb == -1)
-		return (false);
-	if (map->ceil_rgb == -1)
-		return (false);
-	return (true);
-}
-
-bool	ft_parse_file(char **lines, t_map *map)
-{
-	int	i;
-
-	i = 0;
-	while (lines[i])
-	{
-		if (ft_texture_line(lines[i]))
-		{
-			if (!ft_parse_texture(lines[i], map))
-				return (false);
-		}
-		else if (ft_color_line(lines[i]))
-		{
-			if (!ft_parse_color(lines[i], map))
-				return (false);
-		}
-		else
-			printf("OTHER\n");
-		i++;
-	}
-	if (!ft_check_identifiers(map))
-		return (false);
-	return (true);
-}
 
 int	main(int ac, char **av)
 {
@@ -83,6 +40,11 @@ int	main(int ac, char **av)
 		return (1);
 	if (!ft_copy_map(lines, start, &map))
 		return (1);
+	if (!ft_check_player(&map))
+	{
+		printf("Player Error\n");
+		return (1);
+	}
 	printf("NO = %s\n", map.texture.no);
 	printf("SO = %s\n", map.texture.so);
 	printf("WE = %s\n", map.texture.we);

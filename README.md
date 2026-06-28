@@ -47,3 +47,57 @@ Kalan satırları 2 boyutlu bir `char **` dizisine aktar.
 - [ ] [cite_start]Herhangi bir aşamada kural ihlali bulunursa program anında `Error\n` yazdırıp hemen altına mantıklı bir hata mesajı yazdırarak kapanmalıdır (Örn: `Error\nHarita duvarlarla kapalı değil.`)[cite: 190].
 - [ ] [cite_start]Kapanmadan önce o ana kadar `malloc` ile ayrılmış tüm bellekleri (kaplama yolları, harita dizisi vb.) eksiksiz şekilde `free` yap[cite: 34]. [cite_start]Memory leak (bellek sızıntısı) toleransı sıfırdır[cite: 34].
 - [ ] [cite_start]Dosya tanımlayıcıyı (fd) `close()` ile kapatmayı unutma[cite: 107].
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+cube3d/
+│
+├── Makefile
+├── README.md
+│
+├── maps/
+│   └── test.cub
+│
+├── includes/
+│   ├── cube3d/
+│   │   ├── cube3d.h
+│   │   ├── map.h
+│   │   ├── player.h
+│   │   └── img.h
+│   │
+│   ├── get_next_line/
+│   └── libft/
+│
+└── sources/
+    ├── main.c
+    │
+    ├── parsing/
+    │   ├── parser/
+    │   ├── checker/
+    │   └── utils/
+    │
+    ├── mlx/
+    ├── rendering/
+    ├── raycasting/
+    ├── events/
+    └── utils/

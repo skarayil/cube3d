@@ -6,11 +6,11 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 12:12:59 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/25 23:31:32 by skarayil         ###   ########.fr       */
+/*   Updated: 2026/06/28 14:43:25 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cube3d/map.h"
+#include "map.h"
 #include <stdbool.h>
 
 static int	ft_rgb_to_int(int r, int g, int b)

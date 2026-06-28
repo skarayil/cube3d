@@ -6,12 +6,12 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/26 01:41:46 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/26 18:28:11 by skarayil         ###   ########.fr       */
+/*   Updated: 2026/06/28 14:45:18 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cube3d/map.h"
-#include "../../includes/libft/libft.h"
+#include "map.h"
+#include "libft.h"
 #include <stdbool.h>
 #include <stdlib.h>
 

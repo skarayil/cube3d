@@ -6,30 +6,108 @@ CFLAGS = -Wall -Wextra -Werror
 LIBFT_DIR = includes/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-SRC = \
-	sources/parsing/read_file.c \
-	sources/parsing/parse_file.c \
-	sources/parsing/parse_color.c \
-	sources/parsing/parse_texture.c \
-	sources/parsing/get_colors.c \
-	sources/parsing/parse_identifier.c \
-	sources/parsing/find_map.c \
-	sources/parsing/copy_map.c \
+INCLUDES = \
+	-Iincludes/cube3d \
+	-Iincludes/get_next_line \
+	-Iincludes/libft
+
+# ===========================
+# MAIN
+# ===========================
+
+MAIN = \
+	sources/main.c
+
+# ===========================
+# PARSER
+# ===========================
+
+PARSER = \
+	sources/parsing/parser/read_file.c \
+	sources/parsing/parser/parse_file.c \
+	sources/parsing/parser/parse_identifier.c \
+	sources/parsing/parser/parse_texture.c \
+	sources/parsing/parser/parse_color.c
+
+# ===========================
+# PARSER UTILS
+# ===========================
+
+PARSER_UTILS = \
+	sources/parsing/utils/get_colors.c \
+	sources/parsing/utils/find_map.c \
+	sources/parsing/utils/copy_map.c
+
+# ===========================
+# PARSER CHECKER
+# ===========================
+
+CHECKER = \
+	sources/parsing/checker/check_map.c \
+	sources/parsing/checker/check_player.c
+
+# ===========================
+# RENDERING
+# ===========================
+
+RENDERING =
+
+# ===========================
+# RAYCASTING
+# ===========================
+
+RAYCASTING =
+
+# ===========================
+# EVENTS
+# ===========================
+
+EVENTS =
+
+# ===========================
+# MLX
+# ===========================
+
+MLX =
+
+# ===========================
+# UTILS
+# ===========================
+
+UTILS =
+
+# ===========================
+# GNL
+# ===========================
+
+GNL = \
 	includes/get_next_line/get_next_line.c \
 	includes/get_next_line/get_next_line_utils.c
 
+# ===========================
+# SOURCES
+# ===========================
+
+SRC = \
+	$(MAIN) \
+	$(PARSER) \
+	$(PARSER_UTILS) \
+	$(CHECKER) \
+	$(RENDERING) \
+	$(RAYCASTING) \
+	$(EVENTS) \
+	$(MLX) \
+	$(UTILS) \
+	$(GNL)
+
 OBJ = $(SRC:.c=.o)
 
-INCLUDES = -Iincludes/cube3d \
-		   -Iincludes/get_next_line \
-		   -Iincludes/libft
-
-all: $(NAME)
+all: $(LIBFT) $(NAME)
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
-$(NAME): $(OBJ) $(LIBFT)
+$(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
 
 %.o: %.c

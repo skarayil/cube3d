@@ -6,11 +6,11 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 14:44:21 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/25 23:31:40 by skarayil         ###   ########.fr       */
+/*   Updated: 2026/06/28 14:45:08 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/get_next_line/get_next_line.h"
+#include "get_next_line.h"
 #include <fcntl.h>
 #include <stdbool.h>
 #include <stdlib.h>
