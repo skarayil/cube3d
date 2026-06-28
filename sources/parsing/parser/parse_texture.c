@@ -12,19 +12,20 @@
 
 #include "libft.h"
 #include "map.h"
+#include "../parsing.h"
 #include <stdbool.h>
 #include <stdlib.h>
 
-static char	*ft_texture_path(char *line)
+static char	*ft_extract_texture_path(char *line)
 {
 	int	i;
 
 	i = 0;
-	while (line[i] && line[i] != ' ')
+	while (line[i] && line[i] != ' ' && line[i] != '\t')
 		i++;
-	while (line[i] == ' ')
+	while (line[i] == ' ' || line[i] == '\t')
 		i++;
-	return (&line[i]);
+	return (line + i);
 }
 
 static bool	ft_is_xpm(char *path)
@@ -34,65 +35,60 @@ static bool	ft_is_xpm(char *path)
 	len = ft_strlen(path);
 	if (len < 4)
 		return (false);
-	if (path[len - 4] != '.')
+	if (path[len - 4] != '.' || path[len - 3] != 'x')
 		return (false);
-	if (path[len - 3] != 'x' || path[len - 2] != 'p' || path[len - 1] != 'm')
+	if (path[len - 2] != 'p' || path[len - 1] != 'm')
 		return (false);
 	return (true);
 }
 
 static bool	ft_set_texture_value(char *line, t_map *map, char *path)
 {
-	char	**textures[4];
-	char	*keys[4];
-	int		i;
+	char	**dst;
 
-	textures[0] = &map->texture.north;
-	textures[1] = &map->texture.south;
-	textures[2] = &map->texture.west;
-	textures[3] = &map->texture.east;
-	keys[0] = "NO";
-	keys[1] = "SO";
-	keys[2] = "WE";
-	keys[3] = "EA";
-	i = 0;
-	while (i < 4)
+	dst = NULL;
+	if (line[0] == 'N' && line[1] == 'O')
+		dst = &map->texture.north;
+	else if (line[0] == 'S' && line[1] == 'O')
+		dst = &map->texture.south;
+	else if (line[0] == 'W' && line[1] == 'E')
+		dst = &map->texture.west;
+	else if (line[0] == 'E' && line[1] == 'A')
+		dst = &map->texture.east;
+	if (!dst || *dst)
+		return (false);
+	*dst = path;
+	return (true);
+}
+
+static void	ft_trim_trailing_whitespace(char *str)
+{
+	int	len;
+
+	len = ft_strlen(str);
+	while (len > 0 && (str[len - 1] == ' ' || str[len - 1] == '\t'
+			|| str[len - 1] == '\n' || str[len - 1] == '\r'))
 	{
-		if (line[0] == keys[i][0] && line[1] == keys[i][1])
-		{
-			if (*textures[i])
-				return (false);
-			*textures[i] = path;
-			return (true);
-		}
-		i++;
+		str[len - 1] = '\0';
+		len--;
 	}
-	return (false);
 }
 
 bool	ft_parse_texture(char *line, t_map *map)
 {
+	char	*raw;
 	char	*path;
 
-	path = ft_strdup(ft_texture_path(line));
+	raw = ft_extract_texture_path(line);
+	if (!raw[0] || raw[0] == '\n' || raw[0] == '\r')
+		return (false);
+	path = ft_strdup(raw);
 	if (!path)
 		return (false);
-	if (!path[0] || path[0] == '\n')
-	{
-		free(path);
-		return (false);
-	}
-	if (path[ft_strlen(path) - 1] == '\n')
-		path[ft_strlen(path) - 1] = '\0';
-	if (!ft_set_texture_value(line, map, path))
-	{
-		free(path);
-		return (false);
-	}
+	ft_trim_trailing_whitespace(path);
 	if (!ft_is_xpm(path))
-	{
-		free(path);
-		return (false);
-	}
+		return (free(path), false);
+	if (!ft_set_texture_value(line, map, path))
+		return (free(path), false);
 	return (true);
 }

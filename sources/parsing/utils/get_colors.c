@@ -11,44 +11,50 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "map.h"
+#include "../parsing.h"
 
-int	ft_get_red(char *line)
+static char	*ft_skip_to_comma(char *line, int target_commas)
 {
-	int	i;
+	int	commas;
 
-	i = 2;
-	while (line[i] == ' ')
-		i++;
-	return (ft_atoi(&line[i]));
-}
-
-int	ft_get_green(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] && line[i] != ',')
-		i++;
-	if (line[i] == ',')
-		i++;
-	return (ft_atoi(&line[i]));
-}
-
-int	ft_get_blue(char *line)
-{
-	int	i;
-	int	comma;
-
-	i = 0;
-	comma = 0;
-	while (line[i])
+	commas = 0;
+	while (*line)
 	{
-		if (line[i] == ',')
-			comma++;
-		if (comma == 2)
-			return (ft_atoi(&line[i + 1]));
-		i++;
+		if (*line == ',')
+		{
+			commas++;
+			if (commas == target_commas)
+				return (line + 1);
+		}
+		line++;
 	}
-	return (-1);
+	return (NULL);
+}
+
+int	ft_extract_red(char *line)
+{
+	line += 1;
+	while (*line == ' ')
+		line++;
+	return (ft_atoi(line));
+}
+
+int	ft_extract_green(char *line)
+{
+	char	*next;
+
+	next = ft_skip_to_comma(line, 1);
+	if (!next)
+		return (-1);
+	return (ft_atoi(next));
+}
+
+int	ft_extract_blue(char *line)
+{
+	char	*next;
+
+	next = ft_skip_to_comma(line, 2);
+	if (!next)
+		return (-1);
+	return (ft_atoi(next));
 }

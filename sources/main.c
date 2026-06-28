@@ -11,83 +11,91 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "map.h"
-#include "player.h"
+#include "cube3d.h"
 #include <stdio.h>
 #include <stdlib.h>
+
+static bool	ft_check_extension(char *file)
+{
+	int	len;
+
+	len = ft_strlen(file);
+	if (len < 4)
+		return (false);
+	if (file[len - 4] != '.' || file[len - 3] != 'c')
+		return (false);
+	if (file[len - 2] != 'u' || file[len - 1] != 'b')
+		return (false);
+	return (true);
+}
+
+static void	ft_init_map(t_map *map)
+{
+	map->floor.r = -1;
+	map->floor.g = -1;
+	map->floor.b = -1;
+	map->ceiling.r = -1;
+	map->ceiling.g = -1;
+	map->ceiling.b = -1;
+	map->texture.north = NULL;
+	map->texture.south = NULL;
+	map->texture.west = NULL;
+	map->texture.east = NULL;
+	map->grid.data = NULL;
+	map->grid.width = 0;
+	map->grid.height = 0;
+}
+
+static void	ft_free_lines(char **lines)
+{
+	int	i;
+
+	if (!lines)
+		return ;
+	i = 0;
+	while (lines[i])
+		free(lines[i++]);
+	free(lines);
+}
+
+static void	ft_free_map(t_map *map)
+{
+	int	i;
+
+	free(map->texture.north);
+	free(map->texture.south);
+	free(map->texture.west);
+	free(map->texture.east);
+	i = 0;
+	while (i < map->grid.height)
+	{
+		free(map->grid.data[i]);
+		i++;
+	}
+	free(map->grid.data);
+}
 
 int	main(int ac, char **av)
 {
 	char		**lines;
 	t_map		map;
 	t_player	player;
-	int			i;
 
 	if (ac != 2)
-		return (printf("Usage: ./cub3D <map.cub>\n"), 1);
-	map.floor.r = -1;
-	map.floor.g = -1;
-	map.floor.b = -1;
-	map.ceiling.r = -1;
-	map.ceiling.g = -1;
-	map.ceiling.b = -1;
-	map.texture.north = NULL;
-	map.texture.south = NULL;
-	map.texture.west = NULL;
-	map.texture.east = NULL;
-	map.grid.data = NULL;
-	map.grid.width = 0;
-	map.grid.height = 0;
+		return (ft_error("Usage: ./cub3D <map.cub>"), 1);
+	if (!ft_check_extension(av[1]))
+		return (ft_error("Invalid file extension"), 1);
+	ft_init_map(&map);
 	if (!ft_read_map(av[1], &lines))
-		return (printf("Error: Failed to read map\n"), 1);
+		return (ft_error("Failed to read map"), 1);
 	if (!ft_parse_file(lines, &map, &player))
 	{
-		i = 0;
-		while (lines[i])
-			free(lines[i++]);
-		free(lines);
+		ft_free_lines(lines);
+		ft_free_map(&map);
 		return (1);
 	}
-	printf("=== TEXTURES ===\n");
-	printf("NO = %s\n", map.texture.north);
-	printf("SO = %s\n", map.texture.south);
-	printf("WE = %s\n", map.texture.west);
-	printf("EA = %s\n", map.texture.east);
-	printf("\n=== COLORS ===\n");
-	printf("FLOOR = RGB(%d, %d, %d)\n", map.floor.r, map.floor.g, map.floor.b);
-	printf("CEIL = RGB(%d, %d, %d)\n", map.ceiling.r, map.ceiling.g,
-		map.ceiling.b);
-	printf("\n=== PLAYER ===\n");
-	printf("POS = (%.2f, %.2f)\n", player.pos.x, player.pos.y);
-	printf("DIR = (%.2f, %.2f)\n", player.dir.x, player.dir.y);
-	printf("PLANE = (%.2f, %.2f)\n", player.plane.x, player.plane.y);
-	printf("\n=== MAP (%dx%d) ===\n", map.grid.width, map.grid.height);
-	i = 0;
-	while (i < map.grid.height)
-	{
-		printf("%s\n", map.grid.data[i]);
-		i++;
-	}
-	i = 0;
-	while (lines[i])
-		free(lines[i++]);
-	free(lines);
-	if (map.texture.north)
-		free(map.texture.north);
-	if (map.texture.south)
-		free(map.texture.south);
-	if (map.texture.west)
-		free(map.texture.west);
-	if (map.texture.east)
-		free(map.texture.east);
-	i = 0;
-	while (i < map.grid.height)
-	{
-		if (map.grid.data[i])
-			free(map.grid.data[i]);
-		i++;
-	}
-	if (map.grid.data)
-		free(map.grid.data);
+	ft_print_data(&map, &player);
+	ft_free_lines(lines);
+	ft_free_map(&map);
 	return (0);
 }

@@ -34,7 +34,10 @@ int	ft_atoi(const char *nptr)
 	}
 	while (ft_isdigit(*nptr))
 	{
-		res = res * 10 + (*nptr - '0');
+		if (res > 999)
+			res = 999;
+		else
+			res = res * 10 + (*nptr - '0');
 		nptr++;
 	}
 	return (sign * res);

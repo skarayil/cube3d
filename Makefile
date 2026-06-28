@@ -16,7 +16,8 @@ INCLUDES = \
 # ===========================
 
 MAIN = \
-	sources/main.c
+	sources/main.c \
+	sources/print_data.c
 
 # ===========================
 # PARSER
@@ -35,7 +36,6 @@ PARSER = \
 
 PARSER_UTILS = \
 	sources/parsing/utils/get_colors.c \
-	sources/parsing/utils/find_map.c \
 	sources/parsing/utils/error_utils.c \
 	sources/parsing/utils/copy_map.c
 
@@ -45,7 +45,9 @@ PARSER_UTILS = \
 
 CHECKER = \
 	sources/parsing/checker/check_map.c \
-	sources/parsing/checker/check_player.c
+	sources/parsing/checker/check_player.c \
+	sources/parsing/checker/check_walls.c \
+	sources/parsing/checker/player_direction.c
 
 # ===========================
 # GNL

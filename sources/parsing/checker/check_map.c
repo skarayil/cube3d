@@ -11,20 +11,19 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "map.h"
+#include "../parsing.h"
 #include <stdbool.h>
-#include <stdio.h>
 
-static bool	ft_valid_char(char c)
+static bool	ft_is_valid_map_char(char c)
 {
-	if (c == '0' || c == '1' || c == 'N' || c == 'S' || c == 'E' || c == 'W')
+	if (c == '0' || c == '1' || c == ' ')
 		return (true);
-	if (c == ' ' || c == '\n')
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		return (true);
 	return (false);
 }
 
-bool	ft_check_char(t_map *map)
+bool	ft_check_map_chars(t_map *map)
 {
 	int		i;
 	int		j;
@@ -32,12 +31,12 @@ bool	ft_check_char(t_map *map)
 
 	grid = map->grid.data;
 	i = 0;
-	while (grid[i])
+	while (i < map->grid.height)
 	{
 		j = 0;
 		while (grid[i][j])
 		{
-			if (!ft_valid_char(grid[i][j]))
+			if (!ft_is_valid_map_char(grid[i][j]))
 				return (false);
 			j++;
 		}
@@ -46,76 +45,38 @@ bool	ft_check_char(t_map *map)
 	return (true);
 }
 
-bool	ft_check_rectangular(t_map *map)
+static bool	ft_set_map_dimensions(t_map *map)
 {
-	int		i;
-	int		len;
-	char	**grid;
+	int	i;
+	int	len;
+	int	max;
 
-	grid = map->grid.data;
-	if (!grid || map->grid.height < 1)
+	if (!map->grid.data || map->grid.height < 1)
 		return (false);
-	len = ft_strlen(grid[0]);
-	i = 1;
+	max = 0;
+	i = 0;
 	while (i < map->grid.height)
 	{
-		if ((int)ft_strlen(grid[i]) != len)
-		{
-			printf("Line %d length: %d, expected: %d\n", i,
-				(int)ft_strlen(grid[i]), len);
-			return (false);
-		}
+		len = ft_strlen(map->grid.data[i]);
+		if (len > max)
+			max = len;
 		i++;
 	}
-	map->grid.width = len;
-	return (true);
-}
-
-static bool	ft_check_row_walls(char *row, int len)
-{
-	if (len < 1)
-		return (false);
-	if (row[0] != '1' || row[len - 1] != '1')
-		return (false);
-	return (true);
-}
-
-bool	ft_check_surrounding_walls(t_map *map)
-{
-	int		i;
-	char	**grid;
-
-	grid = map->grid.data;
-	if (map->grid.height < 3 || map->grid.width < 3)
-		return (false);
-	i = 0;
-	while (i < map->grid.width)
-	{
-		if (grid[0][i] != '1' || grid[map->grid.height - 1][i] != '1')
-			return (false);
-		i++;
-	}
-	i = 1;
-	while (i < map->grid.height - 1)
-	{
-		if (!ft_check_row_walls(grid[i], map->grid.width))
-			return (false);
-		i++;
-	}
-	return (true);
+	map->grid.width = max;
+	return (max > 0);
 }
 
 bool	ft_check_map(t_map *map)
 {
 	if (!map->grid.data)
 		return (ft_error("Map grid is NULL"));
-	if (!ft_check_rectangular(map))
-		return (ft_error("Map is not rectangular"));
-	if (!ft_check_char(map))
+	if (!ft_set_map_dimensions(map))
+		return (ft_error("Map is empty"));
+	if (!ft_check_map_chars(map))
 		return (ft_error("Map contains invalid characters"));
-	if (!ft_check_surrounding_walls(map))
-		return (ft_error("Map is not surrounded by walls"));
+	if (!ft_check_map_closed(map))
+		return (ft_error("Map is not closed by walls"));
 	if (!ft_check_player(map))
-		return (ft_error("Map does not contain exactly one player"));
+		return (ft_error("Map must contain exactly one player"));
 	return (true);
 }

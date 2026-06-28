@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map.h"
-#include "player.h"
+#include "../parsing.h"
 #include <stdbool.h>
 
 static bool	ft_is_player_char(char c)
@@ -30,8 +29,8 @@ bool	ft_check_player(t_map *map)
 
 	count = 0;
 	grid = map->grid.data;
-	i = 0;
-	while (grid[i])
+	i = -1;
+	while (++i < map->grid.height)
 	{
 		j = 0;
 		while (grid[i][j])
@@ -40,53 +39,8 @@ bool	ft_check_player(t_map *map)
 				count++;
 			j++;
 		}
-		i++;
 	}
 	return (count == 1);
-}
-
-static void	ft_set_north(t_player *p)
-{
-	p->dir.x = 0;
-	p->dir.y = -1;
-	p->plane.x = 0.66;
-	p->plane.y = 0;
-}
-
-static void	ft_set_south(t_player *p)
-{
-	p->dir.x = 0;
-	p->dir.y = 1;
-	p->plane.x = -0.66;
-	p->plane.y = 0;
-}
-
-static void	ft_set_east(t_player *p)
-{
-	p->dir.x = 1;
-	p->dir.y = 0;
-	p->plane.x = 0;
-	p->plane.y = 0.66;
-}
-
-static void	ft_set_west(t_player *p)
-{
-	p->dir.x = -1;
-	p->dir.y = 0;
-	p->plane.x = 0;
-	p->plane.y = -0.66;
-}
-
-static void	ft_set_player_dir(char c, t_player *p)
-{
-	if (c == 'N')
-		ft_set_north(p);
-	else if (c == 'S')
-		ft_set_south(p);
-	else if (c == 'E')
-		ft_set_east(p);
-	else if (c == 'W')
-		ft_set_west(p);
 }
 
 static bool	ft_set_player(t_map *map, t_player *p, int x, int y)
@@ -102,7 +56,7 @@ static bool	ft_set_player(t_map *map, t_player *p, int x, int y)
 	return (true);
 }
 
-bool	ft_find_player(t_map *map, t_player *p)
+bool	ft_init_player(t_map *map, t_player *p)
 {
 	int		x;
 	int		y;
@@ -110,7 +64,7 @@ bool	ft_find_player(t_map *map, t_player *p)
 
 	grid = map->grid.data;
 	y = 0;
-	while (grid[y])
+	while (y < map->grid.height)
 	{
 		x = 0;
 		while (grid[y][x])

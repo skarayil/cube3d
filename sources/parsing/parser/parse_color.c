@@ -6,54 +6,54 @@
 /*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 12:12:59 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/28 16:47:36 by skarayil         ###   ########.fr       */
+/*   Updated: 2026/06/28 21:23:13 by skarayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map.h"
+#include "../parsing.h"
 #include <stdbool.h>
 
-static int	ft_rgb_to_int(int r, int g, int b)
+static bool	ft_validate_part(char **line, bool expect_comma)
 {
-	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-		return (-1);
-	return ((r << 16) | (g << 8) | b);
-}
+	int	digits;
 
-static bool	ft_valid_format(char *line)
-{
-	int		i;
-	int		comma_count;
-	bool	has_digit;
-
-	i = 0;
-	comma_count = 0;
-	has_digit = false;
-	while (line[i] && line[i] != '\n')
+	while (**line == ' ' || **line == '\t')
+		(*line)++;
+	digits = 0;
+	while (**line >= '0' && **line <= '9')
 	{
-		if (line[i] == ',')
-			comma_count++;
-		else if (line[i] >= '0' && line[i] <= '9')
-			has_digit = true;
-		i++;
+		digits++;
+		(*line)++;
 	}
-	return (comma_count == 2 && has_digit);
-}
-
-static bool	ft_valid_chars(char *line)
-{
-	int	i;
-
-	i = 1;
-	while (line[i] == ' ')
-		i++;
-	while (line[i] && line[i] != '\n')
+	if (digits == 0)
+		return (false);
+	while (**line == ' ' || **line == '\t')
+		(*line)++;
+	if (expect_comma)
 	{
-		if (!(line[i] >= '0' && line[i] <= '9') && line[i] != ','
-			&& line[i] != ' ')
+		if (**line != ',')
 			return (false);
-		i++;
+		(*line)++;
 	}
+	else
+	{
+		if (**line != '\0' && **line != '\n' && **line != '\r')
+			return (false);
+	}
+	return (true);
+}
+
+static bool	ft_validate_rgb(char *line)
+{
+	line++;
+	if (*line != ' ' && *line != '\t')
+		return (false);
+	if (!ft_validate_part(&line, true))
+		return (false);
+	if (!ft_validate_part(&line, true))
+		return (false);
+	if (!ft_validate_part(&line, false))
+		return (false);
 	return (true);
 }
 
@@ -82,18 +82,14 @@ bool	ft_parse_color(char *line, t_map *map)
 	int		r;
 	int		g;
 	int		b;
-	int		rgb_int;
 	t_rgb	color;
 
-	if (!ft_valid_format(line))
+	if (!ft_validate_rgb(line))
 		return (false);
-	if (!ft_valid_chars(line))
-		return (false);
-	r = ft_get_red(line);
-	g = ft_get_green(line);
-	b = ft_get_blue(line);
-	rgb_int = ft_rgb_to_int(r, g, b);
-	if (rgb_int == -1)
+	r = ft_extract_red(line);
+	g = ft_extract_green(line);
+	b = ft_extract_blue(line);
+	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 		return (false);
 	color.r = r;
 	color.g = g;

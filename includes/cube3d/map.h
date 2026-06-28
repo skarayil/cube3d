@@ -50,22 +50,6 @@ typedef struct s_map
 bool					ft_read_map(char *file, char ***lines);
 bool					ft_parse_file(char **lines, t_map *map,
 							t_player *player);
-bool					ft_parse_texture(char *line, t_map *map);
-bool					ft_parse_color(char *line, t_map *map);
-bool					ft_texture_line(char *line);
-bool					ft_color_line(char *line);
-bool					ft_check_identifiers(t_map *map);
-int						ft_find_map_start(char **lines);
-bool					ft_copy_map(char **lines, int start, t_map *map);
-bool					ft_check_map(t_map *map);
-bool					ft_check_char(t_map *map);
-bool					ft_check_player(t_map *map);
-bool					ft_check_rectangular(t_map *map);
-bool					ft_check_surrounding_walls(t_map *map);
-bool					ft_find_player(t_map *map, t_player *player);
-int						ft_get_red(char *line);
-int						ft_get_green(char *line);
-int						ft_get_blue(char *line);
 bool					ft_error(char *msg);
 
 #endif

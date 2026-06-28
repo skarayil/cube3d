@@ -27,4 +27,6 @@ typedef struct s_data
 	t_img		textures[4];
 }				t_data;
 
+void			ft_print_data(t_map *map, t_player *player);
+
 #endif
