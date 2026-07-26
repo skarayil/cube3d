@@ -1,18 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/28 14:37:36 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/28 16:42:25 by skarayil         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
 #include "cube3d.h"
-#include <stdio.h>
 #include <stdlib.h>
 
 static bool	ft_check_extension(char *file)
@@ -46,56 +33,62 @@ static void	ft_init_map(t_map *map)
 	map->grid.height = 0;
 }
 
-static void	ft_free_lines(char **lines)
+static bool	ft_init_game(t_data *data)
 {
-	int	i;
-
-	if (!lines)
-		return ;
-	i = 0;
-	while (lines[i])
-		free(lines[i++]);
-	free(lines);
+	data->mlx_ptr = mlx_init();
+	if (!data->mlx_ptr)
+		return (false);
+	data->win_ptr = mlx_new_window(data->mlx_ptr, WIN_W, WIN_H, "cub3D");
+	if (!data->win_ptr)
+		return (false);
+	data->buffer.img_ptr = mlx_new_image(data->mlx_ptr, WIN_W, WIN_H);
+	if (!data->buffer.img_ptr)
+		return (false);
+	data->buffer.addr = mlx_get_data_addr(data->buffer.img_ptr,
+			&data->buffer.bpp, &data->buffer.line_length,
+			&data->buffer.endian);
+	return (true);
 }
 
-static void	ft_free_map(t_map *map)
+static bool	init_all(t_data *data, char *file)
 {
-	int	i;
+	char	**lines;
 
-	free(map->texture.north);
-	free(map->texture.south);
-	free(map->texture.west);
-	free(map->texture.east);
-	i = 0;
-	while (i < map->grid.height)
+	ft_memset(data, 0, sizeof(t_data));
+	ft_init_map(&data->map);
+	if (!ft_read_map(file, &lines))
+		return (ft_error("Failed to read map"));
+	if (!ft_parse_file(lines, &data->map, &data->player))
 	{
-		free(map->grid.data[i]);
-		i++;
+		ft_free_map(&data->map);
+		ft_free_lines(lines);
+		return (false);
 	}
-	free(map->grid.data);
+	ft_free_lines(lines);
+	if (!ft_init_game(data))
+	{
+		ft_free_map(&data->map);
+		return (ft_error("MLX initialization failed"));
+	}
+	return (true);
 }
 
 int	main(int ac, char **av)
 {
-	char		**lines;
-	t_map		map;
-	t_player	player;
+	t_data	data;
 
 	if (ac != 2)
 		return (ft_error("Usage: ./cub3D <map.cub>"), 1);
 	if (!ft_check_extension(av[1]))
 		return (ft_error("Invalid file extension"), 1);
-	ft_init_map(&map);
-	if (!ft_read_map(av[1], &lines))
-		return (ft_error("Failed to read map"), 1);
-	if (!ft_parse_file(lines, &map, &player))
-	{
-		ft_free_lines(lines);
-		ft_free_map(&map);
+	if (!init_all(&data, av[1]))
 		return (1);
-	}
-	ft_print_data(&map, &player);
-	ft_free_lines(lines);
-	ft_free_map(&map);
+	if (!ft_load_textures(&data))
+		return (ft_close_game(&data), 1);
+	mlx_hook(data.win_ptr, X_EVENT_KEY_PRESS, 1L << 0, ft_key_press, &data);
+	mlx_hook(data.win_ptr, X_EVENT_KEY_RELEASE, 1L << 1, ft_key_release, &data);
+	mlx_hook(data.win_ptr, X_EVENT_DESTROY, 0, ft_close_game, &data);
+	mlx_loop_hook(data.mlx_ptr, ft_render, &data);
+	mlx_loop(data.mlx_ptr);
 	return (0);
 }

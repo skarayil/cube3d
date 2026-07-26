@@ -1,18 +1,7 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   error_utils.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/28 17:00:00 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/28 16:07:30 by skarayil         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
 #include "map.h"
 #include <unistd.h>
+#include <stdlib.h>
 
 bool	ft_error(char *msg)
 {
@@ -23,4 +12,16 @@ bool	ft_error(char *msg)
 		write(2, "\n", 1);
 	}
 	return (false);
+}
+
+void	ft_free_lines(char **lines)
+{
+	int	i;
+
+	if (!lines)
+		return ;
+	i = 0;
+	while (lines[i])
+		free(lines[i++]);
+	free(lines);
 }

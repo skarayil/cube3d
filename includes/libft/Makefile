@@ -5,7 +5,8 @@ CFLAGS = -Wall -Wextra -Werror
 
 SRC = ft_strlen.c \
       ft_strdup.c \
-      ft_atoi.c
+      ft_atoi.c \
+      ft_memset.c
 
 OBJ = $(SRC:.c=.o)
 

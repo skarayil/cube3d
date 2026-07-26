@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parse_color.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/23 12:12:59 by skarayil          #+#    #+#             */
-/*   Updated: 2026/06/28 21:23:13 by skarayil         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../parsing.h"
 #include <stdbool.h>
 
@@ -29,17 +17,12 @@ static bool	ft_validate_part(char **line, bool expect_comma)
 		return (false);
 	while (**line == ' ' || **line == '\t')
 		(*line)++;
+	if (expect_comma && **line != ',')
+		return (false);
 	if (expect_comma)
-	{
-		if (**line != ',')
-			return (false);
 		(*line)++;
-	}
-	else
-	{
-		if (**line != '\0' && **line != '\n' && **line != '\r')
-			return (false);
-	}
+	else if (**line != '\0' && **line != '\n' && **line != '\r')
+		return (false);
 	return (true);
 }
 
@@ -67,8 +50,8 @@ static bool	ft_set_color_value(char *line, t_map *map, t_rgb color)
 	}
 	else if (line[0] == 'C')
 	{
-		if (map->ceiling.r != -1 || map->ceiling.g != -1 || map->ceiling.b !=
-			-1)
+		if (map->ceiling.r != -1 || map->ceiling.g != -1
+			|| map->ceiling.b != -1)
 			return (false);
 		map->ceiling = color;
 	}
