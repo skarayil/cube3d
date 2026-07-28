@@ -1,7 +1,7 @@
-NO ./textures/backrooms.xpm
-SO ./textures/backrooms.xpm
-WE ./textures/backrooms.xpm
-EA ./textures/backrooms.xpm
+NO ./textures/north.xpm
+SO ./textures/south.xpm
+WE ./textures/west.xpm
+EA ./textures/east.xpm
 F 153,135,74
 C 225,225,120
 
