@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   movement.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/09/10 15:41:16 by skarayil          #+#    #+#             */
+/*   Updated: 2026/09/10 15:41:17 by skarayil         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cube3d.h"
 #include <math.h>
 
@@ -76,13 +88,13 @@ static void	ft_rotate(t_data *data, double rot_speed)
 	old_dir_x = data->player.dir.x;
 	data->player.dir.x = data->player.dir.x * cos(rot_speed)
 		- data->player.dir.y * sin(rot_speed);
-	data->player.dir.y = old_dir_x * sin(rot_speed)
-		+ data->player.dir.y * cos(rot_speed);
+	data->player.dir.y = old_dir_x * sin(rot_speed) + data->player.dir.y
+		* cos(rot_speed);
 	old_plane_x = data->player.plane.x;
 	data->player.plane.x = data->player.plane.x * cos(rot_speed)
 		- data->player.plane.y * sin(rot_speed);
-	data->player.plane.y = old_plane_x * sin(rot_speed)
-		+ data->player.plane.y * cos(rot_speed);
+	data->player.plane.y = old_plane_x * sin(rot_speed) + data->player.plane.y
+		* cos(rot_speed);
 }
 
 void	ft_update_movement(t_data *data)

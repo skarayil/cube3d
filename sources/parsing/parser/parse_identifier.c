@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_identifier.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/09/10 15:41:50 by skarayil          #+#    #+#             */
+/*   Updated: 2026/09/10 15:41:50 by skarayil         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdbool.h>
 
 static bool	ft_is_space(char c)
@@ -33,8 +45,8 @@ bool	ft_color_line(char *line)
 {
 	if (!line)
 		return (false);
-	if ((line[0] == 'F' && ft_is_space(line[1]))
-		|| (line[0] == 'C' && ft_is_space(line[1])))
+	if ((line[0] == 'F' && ft_is_space(line[1])) || (line[0] == 'C'
+			&& ft_is_space(line[1])))
 		return (true);
 	return (false);
 }

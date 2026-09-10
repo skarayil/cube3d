@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/09/10 15:42:48 by skarayil          #+#    #+#             */
+/*   Updated: 2026/09/10 15:42:49 by skarayil         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cube3d.h"
 
 static void	ft_draw_ceiling(t_data *data, int ceiling_color)
@@ -47,7 +59,7 @@ int	ft_render(t_data *data)
 	ft_draw_ceiling(data, ceiling);
 	ft_draw_floor(data, floor_c);
 	ft_raycast(data);
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-		data->buffer.img_ptr, 0, 0);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->buffer.img_ptr,
+		0, 0);
 	return (0);
 }

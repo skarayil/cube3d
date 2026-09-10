@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/09/10 15:42:05 by skarayil          #+#    #+#             */
+/*   Updated: 2026/09/10 15:42:06 by skarayil         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include "map.h"
-#include <unistd.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 bool	ft_error(char *msg)
 {

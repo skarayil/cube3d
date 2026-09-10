@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_texture.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/09/10 15:41:53 by skarayil          #+#    #+#             */
+/*   Updated: 2026/09/10 15:48:29 by skarayil         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../parsing.h"
 #include "libft.h"
 #include "map.h"
-#include "../parsing.h"
 #include <stdbool.h>
 #include <stdlib.h>
 
@@ -54,8 +66,8 @@ static void	ft_trim_trailing_whitespace(char *str)
 	int	len;
 
 	len = ft_strlen(str);
-	while (len > 0 && (str[len - 1] == ' ' || str[len - 1] == '\t'
-			|| str[len - 1] == '\n' || str[len - 1] == '\r'))
+	while (len > 0 && (str[len - 1] == ' ' || str[len - 1] == '\t' || str[len
+				- 1] == '\n' || str[len - 1] == '\r'))
 	{
 		str[len - 1] = '\0';
 		len--;

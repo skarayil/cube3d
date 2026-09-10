@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_file.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/09/10 15:41:58 by skarayil          #+#    #+#             */
+/*   Updated: 2026/09/10 15:41:59 by skarayil         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 #include "map.h"
 #include <fcntl.h>
@@ -44,8 +56,8 @@ static bool	ft_fill_lines(int fd, char **lines)
 
 bool	ft_read_map(char *file, char ***lines)
 {
-	int		fd;
-	int		count;
+	int	fd;
+	int	count;
 
 	count = ft_count_lines(file);
 	if (count <= 0)

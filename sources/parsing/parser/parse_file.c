@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_file.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/09/10 15:41:46 by skarayil          #+#    #+#             */
+/*   Updated: 2026/09/10 15:41:47 by skarayil         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../parsing.h"
 #include "libft.h"
 #include "map.h"
 #include "player.h"
-#include "../parsing.h"
 #include <stdbool.h>
 
 static bool	ft_is_empty_line(char *line)
@@ -54,8 +66,7 @@ static bool	ft_parse_identifiers(char **lines, t_map *map, int *end)
 	i = 0;
 	while (lines[i])
 	{
-		if (!ft_is_empty_line(lines[i])
-			&& !ft_texture_line(lines[i])
+		if (!ft_is_empty_line(lines[i]) && !ft_texture_line(lines[i])
 			&& !ft_color_line(lines[i]))
 			break ;
 		if (!ft_parse_line(lines[i], map))

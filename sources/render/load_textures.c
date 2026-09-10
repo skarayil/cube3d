@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   load_textures.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/09/10 15:42:37 by skarayil          #+#    #+#             */
+/*   Updated: 2026/09/10 15:42:38 by skarayil         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cube3d.h"
 
 static bool	ft_load_single(t_data *data, t_img *tex, char *path)
 {
-	tex->img_ptr = mlx_xpm_file_to_image(data->mlx_ptr, path,
-			&tex->width, &tex->height);
+	tex->img_ptr = mlx_xpm_file_to_image(data->mlx_ptr, path, &tex->width,
+			&tex->height);
 	if (!tex->img_ptr)
 		return (false);
-	tex->addr = mlx_get_data_addr(tex->img_ptr, &tex->bpp,
-			&tex->line_length, &tex->endian);
+	tex->addr = mlx_get_data_addr(tex->img_ptr, &tex->bpp, &tex->line_length,
+			&tex->endian);
 	return (true);
 }
 

@@ -1,5 +1,17 @@
-#include "libft.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skarayil <skarayil@student.42kocaeli>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/09/10 15:42:55 by skarayil          #+#    #+#             */
+/*   Updated: 2026/09/10 15:42:56 by skarayil         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cube3d.h"
+#include "libft.h"
 #include <stdlib.h>
 
 static bool	ft_check_extension(char *file)
@@ -45,8 +57,7 @@ static bool	ft_init_game(t_data *data)
 	if (!data->buffer.img_ptr)
 		return (false);
 	data->buffer.addr = mlx_get_data_addr(data->buffer.img_ptr,
-			&data->buffer.bpp, &data->buffer.line_length,
-			&data->buffer.endian);
+			&data->buffer.bpp, &data->buffer.line_length, &data->buffer.endian);
 	return (true);
 }
 
